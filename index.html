@@ -4,6 +4,7 @@
         <style type="text/css">
             html, body {
                 background-color: red;
+                font-family: verdana;
             }
             
             body {
@@ -27,27 +28,89 @@
                 margin-left: auto;
                 margin-right: auto;
                 margin-top: 200px;
-                padding: 5px;
+                
                 border: 1.5px solid #333;
                 border-radius: 5px;
             }
             
+            .modalHandle {                
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                height: 20px;
+                width: 100%;
+                background-color: #1D417B;
+                
+            }
+            
             h1,h2,h3,h4,h5,h6,p {
-                font-family: verdana;
+                
                 color: #333;
                 margin: 3px;
-            }                  
+            }    
+            
+            .modalButtonWrap{
+                padding-left: 10px;
+                padding-right: 10px;
+                display:flex;
+                justify-content: space-between;
+                margin: 10px 0;
+                position:relative;
+            }
+            
+            .content-type{
+                width:30%;
+                height: 150px;
+                display:inline;
+                float:left;
+                border: 1.5px solid #CCCCCC;
+                border-radius: 5px;
+            }
+            
+            .content-type:hover{
+                background-color: #E4E8EF;
+                -webkit-box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.75);
+                -moz-box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.75);
+                box-shadow: 3px 3px 6px 0px rgba(0,0,0,0.75);
+            }
+            
+            .content-type:hover + .content-description {
+                display:block;
+                position:absolute;
+                left:5px;
+                bottom: -40px;
+                width: 490px;
+            }
+            
+            .content-type:not(:first-child):not(:last-child){
+
+            }          
+
+            .content-type:last-child{
+                float:right;         
+            }
+            
+            .content-description {
+                display:none;
+                
+            }
+            
         </style>
     </head>
     <body>
         
         <div class="modalWrap">
             <div class="modalBody">
+                <div class="modalHandle"></div>
                 <h3>Add New Content...</h3>
                 <p>Select Type:</p>
-                
-                
-                
+                <div class="modalButtonWrap">
+                    <div class="content-type"></div>
+                        <div class="content-description">Standard text area for written content.</div>
+                    <div class="content-type"></div>
+                        <div class="content-description">Insert video content from YouTube.</div>
+                    <div class="content-type"></div>         
+                        <div class="content-description">Insert a table, graph, or chart.</div>
+                </div>
             </div>
         </div>
         
