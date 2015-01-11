@@ -35,11 +35,12 @@
             
             .modalHandle {                
                 border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-                height: 20px;
+                border-top-right-radius: 5px;                
                 width: 100%;
                 background-color: #1D417B;
-                
+                color: white;
+                margin: 0;                
+                padding: 4px 0;
             }
             
             h1,h2,h3,h4,h5,h6,p {
@@ -98,19 +99,38 @@
     </head>
     <body>
         
-        <div class="modalWrap">
+        <div class="modalWrap">            
             <div class="modalBody">
-                <div class="modalHandle"></div>
-                <h3>Add New Content...</h3>
+                
+                <div class="modalScreen">
+                
+                <h3 class="modalHandle">Add New Content...</h3>
                 <p>Select Type:</p>
                 <div class="modalButtonWrap">
-                    <div class="content-type"></div>
+                    <a id="textContent" class="content-type">Text Icon</a>
                         <div class="content-description">Standard text area for written content.</div>
-                    <div class="content-type"></div>
+                    <a id="videoContent" class="content-type">Video Icon</a>
                         <div class="content-description">Insert video content from YouTube.</div>
-                    <div class="content-type"></div>         
+                    <a id="graphContent" class="content-type">Graph Icon</a>         
                         <div class="content-description">Insert a table, graph, or chart.</div>
                 </div>
+            </div>
+                
+                <div class="modalScreen" data-function="textContent">
+                    <h3 class="modalHandle">Add Text</h3>
+                    <p>This will create a new area for text content in the site.</p>
+                    <label>Section Title: <input type="text" /></label>
+                    <input type="button" value="Create">
+                </div>
+                
+                <div class="modalScreen" data-function="videoContent">
+                
+                </div>
+                
+                <div class="modalScreen" data-funtion="graphContent">
+                
+                </div>
+                
             </div>
         </div>
         
