@@ -30,10 +30,22 @@
                 height: 400px;
                 margin-left: auto;
                 margin-right: auto;
-                margin-top: 200px;
-                
+                margin-top: 200px;                
                 border: 1.5px solid #333;
                 border-radius: 5px;
+            }
+            
+            #close {
+                height: 24px;
+                width: 24px;
+                background-color: #1D417B;
+                position:absolute;
+                top:-8px;
+                right:-8px;
+                border-radius: 12px;
+                border: 2px solid white;    
+                line-height:24px;
+                text-align: center;
             }
             
             .modalHandle {                
@@ -44,6 +56,7 @@
                 color: white;
                 margin: 0;                
                 padding: 4px 0;
+                position:relative;
             }
             
             h1,h2,h3,h4,h5,h6,p {
@@ -102,8 +115,12 @@
                 display:none;
             }
             
-            .modalScreen:first-child{
+            .modalScreen.active {display:block;}
+            
+            #thumbArea img {
                 display:block;
+                height:250px;
+                margin:auto;
             }
             
         </style>
@@ -116,6 +133,37 @@
                     var tar = e.target.id;
                     $('.modalScreen[data-function="'+tar+'"]').show();
                 });
+                
+                $('#vidMake').click(function(){
+                    var addr = $('#vidAddr').val();
+                    
+                    if(addr){
+                        console.log(addr);  
+                        var query = addr.split('?');
+                        var vars = query[1].split('&');
+                        
+                        for(var i = 0; i < vars.length; i++){
+                            var keyVal = vars[i].split('=');
+                            var youTubeId = 'http://gdata.youtube.com/feeds/api/videos/' + keyVal[1];
+                            
+                            $.get(youTubeId, function(data,status) {
+                                if(status = 'success'){
+                                    var x = $.parseXML(data);
+                                    var $xml = $(x);
+                                    console.log($xml);
+                                    var title = $xml.find('title')[0].innerHTML;
+                                    $('#vidTitle').text(title);
+                                    var $a = $xml.find('thumbnail')[0];
+                                    var thumbUrl = $a.attributes[0].value;
+                                    $('#thumbArea').empty();
+                                    $('#thumbArea').append($('<img>', { src:thumbUrl,                                       id:"thumbImg" }));
+                                }                                
+                                
+                            }, 'html'); 
+                            
+                        }
+                    }
+                });
             });
             
             function clearModal(){$('.modalScreen').hide();}
@@ -123,17 +171,21 @@
     </head>
     <body>
         
-        <div class="modalWrap">            
+        <div class="modalWrap">   
+            
             <div class="modalBody">
+                <div class="modalHandle">
+                    <h3>Add New Content...</h3>
+                    <div id="close">X</div>
+                </div>
+                <div class="modalScreen active">
                 
-                <div class="modalScreen">
-                
-                <h3 class="modalHandle">Add New Content...</h3>
+                <!--<h3 class="modalHandle">Add New Content...</h3>-->
                 <p>Select Type:</p>
                 <div class="modalButtonWrap">
                     <a id="textContent" class="content-type">Text Icon</a>
                         <div class="content-description">Standard text area for written content.</div>
-                    <a id="videoContent" class="content-type">Video Icon</a>
+                     <a id="videoContent" class="content-type">Video Icon</a>
                         <div class="content-description">Insert video content from YouTube.</div>
                     <a id="graphContent" class="content-type">Graph Icon</a>         
                         <div class="content-description">Insert a table, graph, or chart.</div>
@@ -148,7 +200,12 @@
                 </div>
                 
                 <div class="modalScreen" data-function="videoContent">
-                
+                    <h3 class="modalHandle">Add Video</h3>
+                    <label>Video address (youTube): <input type="text" id="vidAddr" /></label>
+                    <input id="vidMake" type="button" value="Act" />
+                    
+                    <p id="vidTitle"></p>
+                    <div id="thumbArea"></div>
                 </div>
                 
                 <div class="modalScreen" data-funtion="graphContent">
