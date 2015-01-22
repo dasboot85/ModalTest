@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        
+
+        
         <style type="text/css">
             html, body {
                 background-color: red;
@@ -95,7 +98,28 @@
                 
             }
             
+            .modalScreen{
+                display:none;
+            }
+            
+            .modalScreen:first-child{
+                display:block;
+            }
+            
         </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript">
+            
+            $(document).ready(function(){
+                $('.content-type').click(function(e){
+                    clearModal();
+                    var tar = e.target.id;
+                    $('.modalScreen[data-function="'+tar+'"]').show();
+                });
+            });
+            
+            function clearModal(){$('.modalScreen').hide();}
+        </script>
     </head>
     <body>
         
